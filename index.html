@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Chọn tỉnh thành và phường xã để tra cứu bảng giá gói cước Internet FPT."
+    />
+    <title>Tra cứu gói cước Internet FPT theo khu vực</title>
+    <style>
+:root {
+  --bg: #f5f7ff;
+  --panel: rgba(255, 255, 255, 0.9);
+  --panel-strong: #ffffff;
+  --line: #e7ebff;
+  --text: #10213f;
+  --muted: #5a6785;
+  --primary: #0a5bd8;
+  --primary-soft: rgba(10, 91, 216, 0.1);
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --shadow: 0 18px 42px rgba(40, 72, 128, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(180deg, #ecf3ff 0%, #f8faff 100%);
+  color: var(--text);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.page-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(168, 181, 255, 0.3);
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 30px rgba(17, 35, 80, 0.05);
+}
+
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff3c3c, #d61717);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+
+.brand-name {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.brand-subtitle {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.cta-button,
+.primary-btn,
+.secondary-btn,
+.filter {
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.cta-button,
+.primary-btn {
+  background: linear-gradient(135deg, var(--primary), #1d7bff);
+  color: #fff;
+  box-shadow: 0 12px 20px rgba(12, 92, 207, 0.22);
+}
+
+.cta-button {
+  text-decoration: none;
+  padding: 11px 18px;
+  font-weight: 700;
+}
+
+.container {
+  display: grid;
+  gap: 26px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.6fr 0.9fr;
+  gap: 24px;
+  align-items: center;
+  padding: 26px 18px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(239, 244, 255, 0.94));
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.hero-copy {
+  display: grid;
+  gap: 14px;
+}
+
+.pill {
+  width: fit-content;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(22, 163, 74, 0.12);
+  color: #166534;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.hero-copy h1 {
+  margin: 0;
+  max-width: 620px;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.1;
+}
+
+.hero-copy p {
+  margin: 0;
+  max-width: 680px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.primary-btn,
+.secondary-btn {
+  padding: 12px 18px;
+  font-weight: 700;
+}
+
+.secondary-btn {
+  background: #edf4ff;
+  color: var(--primary);
+}
+
+.stats-card {
+  padding: 22px;
+  border-radius: 22px;
+  background: #fff;
+  border: 1px solid rgba(126, 145, 178, 0.22);
+  box-shadow: 0 10px 24px rgba(17, 35, 80, 0.06);
+  display: grid;
+  gap: 18px;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f7faff, #eef5ff);
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.stat strong {
+  font-size: 1rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.filter {
+  padding: 10px 16px;
+  background: #edf2ff;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.filter.active {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 10px 18px rgba(10, 91, 216, 0.22);
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.section-head h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+}
+
+.source-note {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.source-note a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.plan-card {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: 18px 18px 16px;
+  border-radius: 22px;
+  background: var(--panel-strong);
+  border: 1px solid rgba(126, 145, 178, 0.2);
+  box-shadow: 0 10px 24px rgba(17, 35, 80, 0.06);
+}
+
+.plan-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 4px;
+  border-radius: 22px 22px 0 0;
+  background: linear-gradient(90deg, #1837ff, #2ab1ff);
+}
+
+.plan-card.combo::before {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.plan-card.high-speed::before {
+  background: linear-gradient(90deg, #0ea5e9, #22c55e);
+}
+
+.plan-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.plan-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.plan-badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.plan-card.combo .plan-badge {
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+}
+
+.plan-speed {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.plan-price {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.plan-price small {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.plan-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.plan-meta li::before {
+  content: "•";
+  color: var(--primary);
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.plan-card button {
+  margin-top: 4px;
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(34, 91, 211, 0.2);
+  background: #eff6ff;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.comparison-box {
+  padding: 18px 16px 6px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--line);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+th,
+td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+thead th {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 980px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .page-shell {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .topbar {
+    padding: 12px 14px;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .cta-button {
+    font-size: 0.82rem;
+    padding: 10px 12px;
+  }
+
+  .hero {
+    padding: 20px 14px;
+  }
+
+  .hero-copy h1 {
+    font-size: 2rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+  }
+
+  .plan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.page-heading {
+  padding: 14px 2px 2px;
+}
+
+.page-heading h1 {
+  margin: 13px 0 8px;
+  color: #16213a;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  letter-spacing: -0.045em;
+}
+
+.page-heading p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.location-panel,
+.pricing-section {
+  border: 1px solid #e2e8f0;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 14px 35px rgba(30, 51, 89, 0.08);
+}
+
+.location-panel {
+  padding: 22px;
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 21px;
+}
+
+.step-number {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  place-items: center;
+  border-radius: 14px;
+  background: #fff0e8;
+  color: #e85413;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.panel-heading h2,
+.pricing-heading h2 {
+  margin: 0;
+  font-size: 1.18rem;
+}
+
+.panel-heading p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.location-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.location-fields-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.location-fields label {
+  display: grid;
+  gap: 8px;
+  color: #374151;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.location-fields select,
+.location-fields input[type="search"] {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 13px;
+  border: 1px solid #d9e0eb;
+  border-radius: 12px;
+  outline: none;
+  background: #fff;
+  color: #18243b;
+  font: inherit;
+  font-weight: 500;
+}
+
+.location-fields select:focus,
+.location-fields input[type="search"]:focus {
+  border-color: #f26722;
+  box-shadow: 0 0 0 3px rgba(242, 103, 34, 0.12);
+}
+
+.location-fields select:disabled,
+.location-fields input[type="search"]:disabled {
+  background: #f7f8fa;
+  color: #9aa3b2;
+  cursor: not-allowed;
+}
+
+.location-status {
+  min-height: 1.2em;
+  margin: 13px 0 0;
+  color: #64748b;
+  font-size: 0.82rem;
+}
+
+.pricing-section {
+  overflow: hidden;
+}
+
+.pricing-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 22px 17px;
+}
+
+.table-kicker {
+  display: block;
+  margin-bottom: 7px;
+  color: #e85413;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.pricing-heading h2 {
+  font-size: 1.14rem;
+}
+
+.pricing-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.area-badge {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #fff4ed;
+  color: #bd4912;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.capture-button {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 10px;
+  background: #0a5bd8;
+  color: #fff;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.capture-button:hover {
+  background: #084bb4;
+}
+
+.capture-button:focus-visible {
+  outline: 3px solid rgba(10, 91, 216, 0.24);
+  outline-offset: 2px;
+}
+
+.capture-status {
+  width: 100%;
+  color: #166534;
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+.price-table-wrap {
+  overflow-x: auto;
+  border-top: 1px solid #e5e7eb;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll-hint {
+  display: none;
+  margin: 0;
+  padding: 0 15px 11px;
+  color: #64748b;
+  font-size: 0.76rem;
+}
+
+.price-table {
+  width: 100%;
+  min-width: 950px;
+  border-collapse: collapse;
+  color: #202b3d;
+  font-size: 0.85rem;
+}
+
+.price-table thead {
+  background: #f15b24;
+  color: #fff;
+}
+
+.price-table th,
+.price-table td {
+  padding: 11px 12px;
+  border: 1px solid #e5e7eb;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.price-table thead th {
+  color: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.price-table .service-cell {
+  min-width: 175px;
+  text-align: left;
+}
+
+.price-table .plan-name {
+  width: 100px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.price-table .bandwidth-cell {
+  width: 110px;
+  background: #faf8f2;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.price-table .install-fee {
+  color: #d64b16;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.price-table .device-fee {
+  min-width: 200px;
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.price-table .monthly-price {
+  color: #26364d;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.price-table .plan-row-giga .plan-name {
+  background: #f59e0b;
+}
+
+.price-table .plan-row-sky .plan-name {
+  background: #1768c4;
+}
+
+.price-table .plan-row-meta .plan-name {
+  background: #169447;
+}
+
+.price-table .plan-row-f-game .plan-name {
+  background: #7543b6;
+}
+
+.price-table .plan-row-giga.plan-start td {
+  border-top-color: #f4b15e;
+}
+
+.price-table .plan-start td,
+.price-table .plan-start th {
+  border-top-width: 2px;
+}
+
+.price-table .lookup-loading,
+.price-table .lookup-error {
+  padding: 18px;
+  text-align: left;
+}
+
+.pricing-notes {
+  display: grid;
+  gap: 7px;
+  padding: 14px 20px 18px;
+  color: #64748b;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.pricing-notes p {
+  margin: 0;
+}
+
+.pricing-notes strong {
+  color: #344258;
+}
+
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 2px;
+  color: #64748b;
+  font-size: 0.78rem;
+}
+
+.page-footer a {
+  color: #d6531d;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.lookup-loading,
+.lookup-error {
+  margin: 0;
+  padding: 8px 0;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.lookup-error {
+  color: #b42318;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  .page-shell {
+    padding-top: 12px;
+  }
+
+  .location-panel {
+    padding: 17px 15px;
+  }
+
+  .location-fields {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .pricing-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 18px 15px 14px;
+  }
+
+  .pricing-actions {
+    justify-content: flex-start;
+  }
+
+  .capture-status {
+    text-align: left;
+  }
+
+  .price-table {
+    min-width: 950px;
+    font-size: 0.8rem;
+  }
+
+  .table-scroll-hint {
+    display: block;
+  }
+
+  .price-table th,
+  .price-table td {
+    padding: 10px 9px;
+  }
+
+  .pricing-notes {
+    padding: 13px 15px 16px;
+  }
+
+  .page-footer {
+    flex-direction: column;
+  }
+}
+    </style>
+
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">F</div>
+          <div>
+            <div class="brand-name">FPT Telecom</div>
+            <div class="brand-subtitle">Tra cứu giá theo khu vực</div>
+          </div>
+        </div>
+        <a class="cta-button" href="tel:19006600">Gọi 1900 6600</a>
+      </header>
+
+      <main class="container">
+        <section class="page-heading">
+          <span class="pill">TRA CỨU THEO ĐỊA CHỈ</span>
+          <h1>Bảng giá gói Internet FPT</h1>
+          <p>Chọn tỉnh/thành và phường/xã để tra giá gói cước đang được FPT áp dụng cho khu vực lắp đặt.</p>
+        </section>
+
+        <section class="location-panel" aria-labelledby="location-title">
+          <div class="panel-heading">
+            <span class="step-number">01</span>
+            <div>
+              <h2 id="location-title">Chọn khu vực lắp đặt</h2>
+              <p>Danh sách khu vực và giá được tải từ hệ thống FPT.</p>
+            </div>
+          </div>
+          <div class="location-fields location-fields-two">
+            <label>
+              <span>Tỉnh / thành phố</span>
+              <input id="provinceSearch" type="search" placeholder="Tìm tỉnh/thành..." autocomplete="off" aria-label="Tìm tỉnh/thành phố" disabled />
+              <select id="provinceSelect" disabled>
+                <option value="">Đang tải tỉnh/thành...</option>
+              </select>
+            </label>
+            <label>
+              <span>Phường / xã</span>
+              <input id="wardSearch" type="search" placeholder="Tìm phường/xã..." autocomplete="off" aria-label="Tìm phường/xã" disabled />
+              <select id="wardSelect" disabled>
+                <option value="">Chọn tỉnh/thành trước</option>
+              </select>
+            </label>
+          </div>
+          <p id="locationStatus" class="location-status" role="status">Đang tải danh sách địa chỉ...</p>
+        </section>
+
+        <section id="pricingSection" class="pricing-section" hidden>
+          <div class="pricing-heading">
+            <div>
+              <span class="table-kicker">GIÁ LẤY TRỰC TIẾP TỪ FPT</span>
+              <h2 id="selectedAddress">Giá gói cước</h2>
+            </div>
+            <div class="pricing-actions">
+              <span id="quoteStatus" class="area-badge"></span>
+              <button id="capturePriceButton" class="capture-button" type="button">Tải ảnh bảng giá</button>
+              <span id="captureStatus" class="capture-status" role="status" aria-live="polite"></span>
+            </div>
+          </div>
+          <p class="table-scroll-hint">Vuốt ngang để xem đủ bảng trên điện thoại.</p>
+          <div class="price-table-wrap">
+            <table class="price-table">
+              <thead>
+                <tr>
+                  <th>Cước</th>
+                  <th>Băng thông</th>
+                  <th>Dịch vụ</th>
+                  <th>Phí lắp đặt</th>
+                  <th>Phí thiết bị</th>
+                  <th>Phường</th>
+                  <th>Xã</th>
+                </tr>
+              </thead>
+              <tbody id="priceTableBody" aria-live="polite"></tbody>
+            </table>
+          </div>
+          <div class="pricing-notes">
+            <p><strong>Cước Internet Only:</strong> tra theo địa chỉ FPT. Giá Combo/Triple, phí lắp đặt và phí thiết bị lấy theo bảng tháng 7 anh gửi; thông tin nào không có trong bảng sẽ hiện N/A. Phường An Lạc, Bình Tân, Tân Tạo, Bình Trị Đông và Bình Hưng Hòa áp dụng cột giá Xã.</p>
+            <p><strong>Gói F1 / F2 / F3:</strong> các tỉnh ngoài Hà Nội, Đà Nẵng và TP. Hồ Chí Minh cộng thêm 25.000đ vào cước gói theo điều kiện trả trước 3, 6 hoặc 12 tháng ghi trong bảng tham khảo.</p>
+            <p>Dữ liệu địa chỉ và giá Internet Only được lưu 30 ngày; hết hạn sẽ tự cập nhật từ FPT khi có lượt tra cứu. Giá Combo/Triple theo bảng tháng 7 cần được xác nhận lại với FPT trước khi đăng ký.</p>
+          </div>
+        </section>
+
+        <footer class="page-footer">
+          <span>Nguồn dữ liệu: hệ thống gói cước chính thức FPT Telecom.</span>
+          <a href="https://fpt.vn/internet" target="_blank" rel="noreferrer">Tham khảo FPT.VN ↗</a>
+        </footer>
+      </main>
+    </div>
+
+    <script>window.FPT_SNAPSHOT = {"exportedAt":"2026-10-12T10:35:59.814521+00:00","locations":[{"Id":8,"Name":"Hồ Chí Minh","Desc":"Hồ Chí Minh, Bà Rịa - Vũng Tàu, Bình Dương"},{"Id":231,"Name":"Lai Châu","Desc":"Lai Châu"},{"Id":70,"Name":"Vĩnh Long","Desc":"Vĩnh Long, Trà Vinh, Bến Tre"},{"Id":66,"Name":"Tây Ninh","Desc":"Tây Ninh, Long An"},{"Id":71,"Name":"Cần Thơ","Desc":"Cần Thơ, Sóc Trăng, Hậu Giang"},{"Id":780,"Name":"Cà Mau","Desc":"Cà Mau, Bạc Liêu"}],"areasByCity":{"8":[{"Id":1000009697,"Name":"Phường An Đông","Desc":"","WardId":1000107397,"MainLocationId":8},{"Id":1000009701,"Name":"Phường An Lạc","Desc":"","WardId":1000107401,"MainLocationId":8},{"Id":1000009703,"Name":"Phường An Phú","Desc":"","WardId":1000107403,"MainLocationId":65},{"Id":1000009704,"Name":"Phường An Phú Đông","Desc":"","WardId":1000107404,"MainLocationId":8},{"Id":1000009714,"Name":"Phường Bình Hưng Hòa","Desc":"","WardId":1000107414,"MainLocationId":8},{"Id":1000009718,"Name":"Phường Bình Tân","Desc":"","WardId":1000107418,"MainLocationId":8},{"Id":1000009723,"Name":"Phường Bình Trị Đông","Desc":"","WardId":1000107423,"MainLocationId":8},{"Id":1000009787,"Name":"Phường Tân Tạo","Desc":"","WardId":1000107487,"MainLocationId":8},{"Id":1000009791,"Name":"Phường Tân Uyên","Desc":"","WardId":1000107491,"MainLocationId":65},{"Id":1000009799,"Name":"Phường Thủ Dầu Một","Desc":"","WardId":1000107499,"MainLocationId":65},{"Id":1000009810,"Name":"Xã An Long","Desc":"","WardId":1000107510,"MainLocationId":65},{"Id":1000009824,"Name":"Xã Cần Giờ","Desc":"","WardId":1000107524,"MainLocationId":8},{"Id":1000009854,"Name":"Xã Tân Vĩnh Lộc","Desc":"","WardId":1000107554,"MainLocationId":8}],"231":[{"Id":1000008386,"Name":"Xã Hồng Thu","Desc":"","WardId":1000106208,"MainLocationId":231}],"70":[{"Id":1000010963,"Name":"Phường An Hội","Desc":"","WardId":1000108663,"MainLocationId":75},{"Id":1000010973,"Name":"Phường Phú Khương","Desc":"","WardId":1000108673,"MainLocationId":75}],"66":[{"Id":1000010945,"Name":"Xã  Tân Thạnh","Desc":"","WardId":1000108645,"MainLocationId":72}],"71":[{"Id":1000009510,"Name":"Phường Mỹ Quới","Desc":"","WardId":1000107210,"MainLocationId":79}],"780":[{"Id":1000010018,"Name":"Xã Cái Nước","Desc":"","WardId":1000107718,"MainLocationId":780}]},"quotes":{"8:1000009697":{"address":{"city":"Hồ Chí Minh","area":"Phường An Đông"},"packages":[{"name":"Internet Giga","price":"200.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"205.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"220.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"245.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"265.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"300.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"285.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:09:45.700771+00:00"},"8:1000009701":{"address":{"city":"Hồ Chí Minh","area":"Phường An Lạc"},"packages":[{"name":"Internet Giga","price":"200.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"205.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"220.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"245.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"265.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"300.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"285.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:19:59.524968+00:00"},"8:1000009703":{"address":{"city":"Hồ Chí Minh","area":"Phường An Phú"},"packages":[{"name":"Internet Giga","price":"255.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"265.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"275.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"285.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"305.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"325.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"315.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"345.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"335.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:24:25.949764+00:00"},"8:1000009704":{"address":{"city":"Hồ Chí Minh","area":"Phường An Phú Đông"},"packages":[{"name":"Internet Giga","price":"200.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"205.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"220.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"245.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"265.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"300.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"285.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:24:29.773622+00:00"},"8:1000009714":{"address":{"city":"Hồ Chí Minh","area":"Phường Bình Hưng Hòa"},"packages":[{"name":"Internet Giga","price":"200.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"205.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"220.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"245.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"265.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"300.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"285.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:20:03.757317+00:00"},"8:1000009718":{"address":{"city":"Hồ Chí Minh","area":"Phường Bình Tân"},"packages":[{"name":"Internet Giga","price":"200.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"205.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"220.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"245.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"265.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"300.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"285.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:20:01.179979+00:00"},"8:1000009723":{"address":{"city":"Hồ Chí Minh","area":"Phường Bình Trị Đông"},"packages":[{"name":"Internet Giga","price":"200.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"205.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"220.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"245.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"265.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"300.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"285.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:17:12.411192+00:00"},"8:1000009787":{"address":{"city":"Hồ Chí Minh","area":"Phường Tân Tạo"},"packages":[{"name":"Internet Giga","price":"200.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"205.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"220.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"245.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"265.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"300.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"285.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:20:02.241887+00:00"},"8:1000009791":{"address":{"city":"Hồ Chí Minh","area":"Phường Tân Uyên"},"packages":[{"name":"Internet Giga","price":"255.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"265.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"275.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"285.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"305.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"325.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"315.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"345.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"335.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:19:32.402915+00:00"},"8:1000009799":{"address":{"city":"Hồ Chí Minh","area":"Phường Thủ Dầu Một"},"packages":[{"name":"Internet Giga","price":"255.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"265.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"275.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"285.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"305.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"325.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"315.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"345.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"335.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:12:20.373402+00:00"},"8:1000009810":{"address":{"city":"Hồ Chí Minh","area":"Xã An Long"},"packages":[{"name":"Internet Sky","price":"195.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"255.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"285.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"225.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"330.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"255.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:14:11.574886+00:00"},"8:1000009824":{"address":{"city":"Hồ Chí Minh","area":"Xã Cần Giờ"},"packages":[{"name":"Internet Giga","price":"200.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"205.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"220.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"245.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"265.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"300.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"285.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:11:30.409428+00:00"},"8:1000009854":{"address":{"city":"Hồ Chí Minh","area":"Xã Tân Vĩnh Lộc"},"packages":[{"name":"Internet Giga","price":"200.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"205.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"220.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"245.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"265.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"300.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"285.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:17:59.465015+00:00"},"231:1000008386":{"address":{"city":"Lai Châu","area":"Xã Hồng Thu"},"packages":[{"name":"Internet Giga","price":"195.000đ","url":"https://fpt.vn/internet/goi-giga","category":"Internet cá nhân"},{"name":"Internet Sky","price":"195.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Giga F1","price":"205.000đ","url":"https://fpt.vn/internet/goi-giga-f1","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"205.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"245.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"235.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"305.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"255.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:16:44.042764+00:00"},"70:1000010963":{"address":{"city":"Vĩnh Long","area":"Phường An Hội"},"packages":[{"name":"Internet Sky","price":"195.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"255.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"285.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"295.000đ","url":"","category":"Internet game thủ"},{"name":"F-Game F1","price":"295.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:25:08.721226+00:00"},"70:1000010973":{"address":{"city":"Vĩnh Long","area":"Phường Phú Khương"},"packages":[{"name":"Internet Sky","price":"195.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"255.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"285.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"295.000đ","url":"","category":"Internet game thủ"},{"name":"F-Game F1","price":"295.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:25:31.262939+00:00"},"66:1000010945":{"address":{"city":"Tây Ninh","area":"Xã  Tân Thạnh"},"packages":[{"name":"Internet Sky","price":"190.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"220.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"250.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"250.000đ","url":"https://fpt.vn/internet/goi-meta","category":"Internet game thủ"},{"name":"F-Game F1","price":"270.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:10:56.881794+00:00"},"71:1000009510":{"address":{"city":"Cần Thơ","area":"Phường Mỹ Quới"},"packages":[{"name":"Internet Sky","price":"195.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"255.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"285.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"295.000đ","url":"","category":"Internet game thủ"},{"name":"F-Game F1","price":"295.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:20:22.943149+00:00"},"780:1000010018":{"address":{"city":"Cà Mau","area":"Xã Cái Nước"},"packages":[{"name":"Internet Sky","price":"195.000đ","url":"https://fpt.vn/internet/goi-sky","category":"Internet cá nhân"},{"name":"Internet Sky F1","price":"225.000đ","url":"https://fpt.vn/internet/goi-sky-f1","category":"Internet cá nhân"},{"name":"Internet Sky F2","price":"255.000đ","url":"https://fpt.vn/internet/goi-sky-f2","category":"Internet cá nhân"},{"name":"Internet Sky F3","price":"285.000đ","url":"https://fpt.vn/internet/goi-sky-f3","category":"Internet cá nhân"},{"name":"Internet F-Game","price":"265.000đ","url":"https://fpt.vn/internet/goi-f-game","category":"Internet game thủ"},{"name":"Internet Meta","price":"295.000đ","url":"","category":"Internet game thủ"},{"name":"F-Game F1","price":"295.000đ","url":"https://fpt.vn/internet/goi-f-game-f1","category":"Internet game thủ"}],"cachedAt":"2026-10-12T10:20:10.561315+00:00"}}};</script>
+    <script>
+const provinceSelect = document.getElementById('provinceSelect');
+const wardSelect = document.getElementById('wardSelect');
+const provinceSearch = document.getElementById('provinceSearch');
+const wardSearch = document.getElementById('wardSearch');
+const locationStatus = document.getElementById('locationStatus');
+const pricingSection = document.getElementById('pricingSection');
+const selectedAddress = document.getElementById('selectedAddress');
+const quoteStatus = document.getElementById('quoteStatus');
+const priceTableBody = document.getElementById('priceTableBody');
+const capturePriceButton = document.getElementById('capturePriceButton');
+const captureStatus = document.getElementById('captureStatus');
+const communeTariffExceptions = new Set([
+  'phuong an lac',
+  'phuong binh tan',
+  'phuong tan tao',
+  'phuong binh tri dong',
+  'phuong binh hung hoa'
+]);
+
+const planGroups = [
+  {
+    name: 'GIGA',
+    bandwidth: '300 Mbps',
+    match: /^internet giga$/i,
+    rows: [
+      ['Internet Only', 'N/A', null, null],
+      ['Combo Camera', 'Cam 1 = 0đ<br>Từ cam 2: theo CS hiện hành (400K)', 255000, 220000],
+      ['Combo VIP APP', 'N/A', 255000, 220000],
+      ['Combo VIP BOX', 'Có box = 100.000đ', 275000, 230000],
+      ['Triple VIP APP', 'N/A', 280000, 255000],
+      ['Triple VIP Box', 'Có box = 100.000đ<br>Cam 1 = 0đ<br>Từ cam 2: theo CS hiện hành (400K)', 295000, 255000]
+    ]
+  },
+  {
+    name: 'SKY',
+    bandwidth: '1 Gbps',
+    match: /^internet sky$/i,
+    rows: [
+      ['Internet Only', 'N/A', null, null],
+      ['Combo Camera', 'Cam 1 = 0đ<br>Từ cam 2: theo CS hiện hành (400K)', 265000, 230000],
+      ['Combo VIP APP', 'N/A', 265000, 230000],
+      ['Combo VIP BOX', 'Có box = 100.000đ', 285000, 240000],
+      ['Triple VIP APP', 'N/A', 290000, 265000],
+      ['Triple VIP Box', 'Có box = 100.000đ<br>Cam 1 = 0đ<br>Từ cam 2: theo CS hiện hành (400K)', 305000, 265000],
+      ['Combo thể thao - Combo V.VIP Box', 'Có box = 0đ', 269000, 239000],
+      ['Triple thể thao - Triple V.VIP Box', 'Có box = 0đ<br>Cam 1 = 0đ<br>Từ cam 2: theo CS hiện hành (400K)', 309000, 279000]
+    ]
+  },
+  {
+    name: 'META',
+    bandwidth: '1 Gbps',
+    match: /^internet meta$/i,
+    rows: [
+      ['Internet Only', 'N/A', null, null],
+      ['Combo Camera', 'Cam 1 = 0đ<br>Từ cam 2: theo CS hiện hành (400K)', 345000, 325000],
+      ['Combo VIP APP', 'N/A', 345000, 325000],
+      ['Combo VIP BOX', 'Có box = 100.000đ', 365000, 335000],
+      ['Triple VIP APP', 'N/A', 370000, 360000],
+      ['Triple VIP Box', 'Có box = 100.000đ<br>Cam 1 = 0đ<br>Từ cam 2: theo CS hiện hành (400K)', 385000, 360000],
+      ['Combo thể thao - Combo V.VIP Box', 'Có box = 0đ', 399000, 369000],
+      ['Triple thể thao - Triple V.VIP Box', 'Có box = 0đ<br>Cam 1 = 0đ<br>Từ cam 2: theo CS hiện hành (400K)', 439000, 409000]
+    ]
+  },
+  {
+    name: 'F GAME',
+    bandwidth: '1 Gbps',
+    match: /^internet f-game$/i,
+    rows: [
+      ['Internet Only', 'N/A', null, null],
+      ['Combo Camera', 'Cam 1 = 0đ<br>Từ cam 2: theo CS hiện hành (400K)', 315000, 290000],
+      ['Combo VIP APP', 'N/A', 315000, 290000],
+      ['Combo VIP BOX', 'Có box = 100.000đ', 335000, 300000],
+      ['Triple VIP APP', 'N/A', 340000, 325000],
+      ['Triple VIP Box', 'Có box = 100.000đ<br>Cam 1 = 0đ<br>Từ cam 2: theo CS hiện hành (400K)', 355000, 325000]
+    ]
+  }
+];
+
+let locations = [];
+let areas = [];
+let areaRequestNumber = 0;
+let packageRequestNumber = 0;
+
+function setOptions(select, placeholder, items, searchInput) {
+  const previousValue = select.value;
+  const query = normalizeVietnameseName(searchInput?.value || '');
+  const filteredItems = query
+    ? items.filter((item) => normalizeVietnameseName(item.Name).includes(query))
+    : items;
+  const emptyLabel = query && filteredItems.length === 0 ? 'Không tìm thấy kết quả' : placeholder;
+  select.replaceChildren(new Option(emptyLabel, ''));
+  filteredItems.forEach((item) => select.add(new Option(item.Name, String(item.Id))));
+  select.value = filteredItems.some((item) => String(item.Id) === previousValue)
+    ? previousValue
+    : '';
+  select.disabled = items.length === 0;
+  if (searchInput) searchInput.disabled = items.length === 0;
+  return previousValue !== select.value;
+}
+
+async function getJson(url) {
+  const response = await fetch(url);
+  const result = await response.json();
+  if (!response.ok) {
+    throw new Error(result.error || 'Không tải được dữ liệu. Vui lòng thử lại.');
+  }
+  return result;
+}
+
+function addCell(row, content, className = '') {
+  const cell = document.createElement('td');
+  if (className) cell.className = className;
+  cell.textContent = content || 'N/A';
+  row.append(cell);
+}
+
+function formatPrice(price) {
+  return price === null || price === undefined
+    ? 'N/A'
+    : `${new Intl.NumberFormat('vi-VN').format(price)}đ`;
+}
+
+function normalizeVietnameseName(value) {
+  return value
+    .replace(/[đĐ]/g, (letter) => (letter === 'Đ' ? 'D' : 'd'))
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLocaleLowerCase('vi')
+    .trim();
+}
+
+function usesCommunePrices(areaName) {
+  const normalizedName = normalizeVietnameseName(areaName);
+  return normalizedName.startsWith('xa ') || communeTariffExceptions.has(normalizedName);
+}
+
+function renderPrices(packages, areaType, internetPricePending = false) {
+  const pricesByPlan = new Map(packages.map((plan) => [plan.name.trim(), plan.price]));
+  priceTableBody.replaceChildren();
+
+  planGroups.forEach((group) => {
+    const livePrice = [...pricesByPlan.entries()].find(([name]) => group.match.test(name))?.[1] || 'N/A';
+    group.rows.forEach(([service, deviceFee, wardPrice, communePrice], index) => {
+      const row = document.createElement('tr');
+      row.className = `plan-row plan-row-${group.name.toLowerCase().replace(/\s+/g, '-')}${index === 0 ? ' plan-start' : ''}`;
+
+      if (index === 0) {
+        const name = document.createElement('th');
+        name.className = 'plan-name';
+        name.scope = 'rowgroup';
+        name.rowSpan = group.rows.length;
+        name.textContent = group.name;
+        row.append(name);
+
+        const bandwidth = document.createElement('td');
+        bandwidth.className = 'bandwidth-cell';
+        bandwidth.rowSpan = group.rows.length;
+        bandwidth.textContent = group.bandwidth;
+        row.append(bandwidth);
+      }
+
+      addCell(row, service, 'service-cell');
+      addCell(row, '300.000đ', 'install-fee');
+      const deviceCell = document.createElement('td');
+      deviceCell.className = 'device-fee';
+      deviceCell.innerHTML = deviceFee;
+      row.append(deviceCell);
+      const areaPrice = areaType === 'Xã' ? communePrice : wardPrice;
+      const monthlyPrice = service === 'Internet Only'
+        ? (internetPricePending ? 'Đang tải…' : (livePrice === undefined ? 'N/A' : livePrice))
+        : formatPrice(areaPrice);
+      addCell(row, areaType === 'Phường' ? monthlyPrice : 'N/A', 'monthly-price');
+      addCell(row, areaType === 'Xã' ? monthlyPrice : 'N/A', 'monthly-price');
+      priceTableBody.append(row);
+    });
+  });
+}
+
+async function loadLocations() {
+  try {
+    if (window.FPT_SNAPSHOT) {
+      const availableCities = new Set(
+        Object.keys(window.FPT_SNAPSHOT.quotes).map((key) => key.split(':')[0])
+      );
+      locations = window.FPT_SNAPSHOT.locations.filter((item) =>
+        availableCities.has(String(item.Id))
+      );
+      setOptions(provinceSelect, 'Chọn tỉnh/thành phố', locations, provinceSearch);
+      locationStatus.textContent =
+        `Bản HTML lưu báo giá cho ${Object.keys(window.FPT_SNAPSHOT.quotes).length} khu vực; ` +
+        `dữ liệu chụp ngày ${new Intl.DateTimeFormat('vi-VN').format(new Date(window.FPT_SNAPSHOT.exportedAt))}.`;
+      return;
+    }
+
+    const result = await getJson('/api/locations');
+    locations = result.locations;
+    setOptions(provinceSelect, 'Chọn tỉnh/thành phố', locations, provinceSearch);
+    locationStatus.textContent = 'Chọn tỉnh/thành phố để tải các phường/xã được FPT hỗ trợ.';
+  } catch (error) {
+    provinceSelect.replaceChildren(new Option('Không tải được danh sách', ''));
+    locationStatus.textContent = `${error.message} Tải lại trang để thử lại.`;
+  }
+}
+
+async function handleProvinceChange() {
+  const requestNumber = ++areaRequestNumber;
+  const selectedProvince = locations.find((item) => String(item.Id) === provinceSelect.value);
+  wardSearch.value = '';
+  areas = [];
+  setOptions(
+    wardSelect,
+    selectedProvince ? 'Đang tải phường/xã...' : 'Chọn tỉnh/thành trước',
+    [],
+    wardSearch
+  );
+  pricingSection.hidden = true;
+  priceTableBody.replaceChildren();
+
+  if (!selectedProvince) {
+    locationStatus.textContent = 'Chọn tỉnh/thành phố để bắt đầu.';
+    return;
+  }
+
+  locationStatus.textContent = `Đang tải khu vực của ${selectedProvince.Name}...`;
+  try {
+    const result = window.FPT_SNAPSHOT
+      ? {
+          areas: (window.FPT_SNAPSHOT.areasByCity[String(selectedProvince.Id)] || [])
+            .filter((area) => window.FPT_SNAPSHOT.quotes[`${selectedProvince.Id}:${area.Id}`])
+        }
+      : await getJson(`/api/locations/${encodeURIComponent(selectedProvince.Id)}/areas`);
+    if (requestNumber !== areaRequestNumber) return;
+    areas = result.areas;
+    setOptions(wardSelect, 'Chọn phường/xã', areas, wardSearch);
+    locationStatus.textContent = result.areas.length
+      ? 'Hãy chọn phường/xã để xem bảng giá.'
+      : 'FPT chưa có khu vực lắp đặt trong tỉnh/thành này.';
+  } catch (error) {
+    if (requestNumber !== areaRequestNumber) return;
+    areas = [];
+    wardSelect.replaceChildren(new Option('Không tải được phường/xã', ''));
+    wardSelect.disabled = true;
+    wardSearch.disabled = true;
+    locationStatus.textContent = error.message;
+  }
+}
+
+async function handleWardChange() {
+  const requestNumber = ++packageRequestNumber;
+  const selectedProvince = locations.find((item) => String(item.Id) === provinceSelect.value);
+  const selectedArea = [...wardSelect.options].find((item) => item.value === wardSelect.value);
+  if (!selectedProvince || !selectedArea || !selectedArea.value) {
+    pricingSection.hidden = true;
+    return;
+  }
+
+  selectedAddress.textContent = `${selectedArea.text}, ${selectedProvince.Name}`;
+  quoteStatus.textContent = 'Đang tải giá Internet Only';
+  pricingSection.hidden = false;
+  const areaType = usesCommunePrices(selectedArea.text) ? 'Xã' : 'Phường';
+  renderPrices([], areaType, true);
+
+  try {
+    const query = new URLSearchParams({
+      city_id: selectedProvince.Id,
+      area_id: selectedArea.value
+    });
+    const snapshotQuote = window.FPT_SNAPSHOT?.quotes[
+      `${selectedProvince.Id}:${selectedArea.value}`
+    ];
+    const result = snapshotQuote
+      ? {
+          ...snapshotQuote,
+          cachedAt: snapshotQuote.cachedAt || window.FPT_SNAPSHOT.exportedAt,
+          stale: false
+        }
+      : await getJson(`/api/packages?${query}`);
+    if (requestNumber !== packageRequestNumber) return;
+    selectedAddress.textContent = `${result.address.area}, ${result.address.city}`;
+    quoteStatus.textContent = window.FPT_SNAPSHOT
+      ? `Bản HTML · ${new Intl.DateTimeFormat('vi-VN').format(new Date(result.cachedAt))}`
+      : result.stale
+        ? 'Dữ liệu cũ — cập nhật FPT lỗi'
+        : `Cache ${new Intl.DateTimeFormat('vi-VN', { month: '2-digit', year: 'numeric' }).format(new Date(result.cachedAt))}`;
+    renderPrices(result.packages, usesCommunePrices(result.address.area) ? 'Xã' : 'Phường');
+    locationStatus.textContent = `Đang xem giá FPT cho ${result.address.area}, ${result.address.city}.`;
+  } catch (error) {
+    if (requestNumber !== packageRequestNumber) return;
+    quoteStatus.textContent = 'Chưa tải được giá Internet Only';
+    renderPrices([], areaType);
+    const errorRow = document.createElement('tr');
+    const errorCell = document.createElement('td');
+    errorCell.colSpan = 7;
+    errorCell.className = 'lookup-error';
+    errorCell.textContent = `Không tải được giá Internet Only: ${error.message}`;
+    errorRow.append(errorCell);
+    priceTableBody.append(errorRow);
+  }
+}
+
+provinceSelect.addEventListener('change', handleProvinceChange);
+wardSelect.addEventListener('change', handleWardChange);
+provinceSearch.addEventListener('input', () => {
+  if (setOptions(provinceSelect, 'Chọn tỉnh/thành phố', locations, provinceSearch)) {
+    handleProvinceChange();
+  }
+});
+wardSearch.addEventListener('input', () => {
+  if (setOptions(wardSelect, 'Chọn phường/xã', areas, wardSearch)) {
+    handleWardChange();
+  }
+});
+
+function wrapCanvasText(context, text, maxWidth) {
+  const lines = [];
+  String(text || '').split(/\n/).forEach((paragraph) => {
+    let line = '';
+    paragraph.split(/\s+/).filter(Boolean).forEach((word) => {
+      const candidate = line ? `${line} ${word}` : word;
+      if (line && context.measureText(candidate).width > maxWidth) {
+        lines.push(line);
+        line = word;
+      } else {
+        line = candidate;
+      }
+    });
+    lines.push(line);
+  });
+  return lines.length ? lines : [''];
+}
+
+function drawCanvasCell(context, cell, x, y, width, height, text, isHeader = false) {
+  const computed = cell ? getComputedStyle(cell) : null;
+  const background = computed?.backgroundColor;
+  context.fillStyle = background && background !== 'rgba(0, 0, 0, 0)'
+    ? background
+    : (isHeader ? '#f15b24' : '#ffffff');
+  context.fillRect(x, y, width, height);
+  context.strokeStyle = '#d5dbe5';
+  context.lineWidth = 1;
+  context.strokeRect(x, y, width, height);
+
+  const fontWeight = isHeader ? '700' : (computed?.fontWeight || '500');
+  const fontSize = isHeader ? 13 : 13;
+  context.font = `${fontWeight} ${fontSize}px Arial, sans-serif`;
+  context.fillStyle = computed?.color && computed.color !== 'rgba(0, 0, 0, 0)'
+    ? computed.color
+    : (isHeader ? '#ffffff' : '#26364d');
+  context.textAlign = isHeader ? 'center' : (computed?.textAlign || 'center');
+  context.textBaseline = 'middle';
+
+  const padding = 8;
+  const maxWidth = Math.max(20, width - padding * 2);
+  const lines = wrapCanvasText(context, text, maxWidth);
+  const lineHeight = 18;
+  const textHeight = lines.length * lineHeight;
+  let textX = x + width / 2;
+  if (context.textAlign === 'left') textX = x + padding;
+  if (context.textAlign === 'right') textX = x + width - padding;
+  const firstY = y + (height - textHeight) / 2 + lineHeight / 2;
+  lines.forEach((line, index) => {
+    context.fillText(line, textX, firstY + index * lineHeight, maxWidth);
+  });
+}
+
+async function downloadPriceTableImage() {
+  const table = document.querySelector('.price-table');
+  const headers = [...table.tHead.rows[0].cells];
+  const sourceRows = [...priceTableBody.rows];
+  if (!sourceRows.length) {
+    captureStatus.textContent = 'Chưa có bảng giá để chụp.';
+    return;
+  }
+
+  const columnWidths = headers.map((cell) => Math.ceil(cell.getBoundingClientRect().width));
+  const columnCount = columnWidths.length;
+  const grid = Array.from({ length: sourceRows.length }, () => Array(columnCount).fill(null));
+  const entries = [];
+
+  sourceRows.forEach((row, rowIndex) => {
+    let columnIndex = 0;
+    [...row.cells].forEach((cell) => {
+      while (columnIndex < columnCount && grid[rowIndex][columnIndex]) columnIndex += 1;
+      const rowSpan = cell.rowSpan || 1;
+      const colSpan = cell.colSpan || 1;
+      const entry = { cell, rowIndex, columnIndex, rowSpan, colSpan };
+      entries.push(entry);
+      for (let rowOffset = 0; rowOffset < rowSpan; rowOffset += 1) {
+        for (let colOffset = 0; colOffset < colSpan; colOffset += 1) {
+          if (grid[rowIndex + rowOffset]) {
+            grid[rowIndex + rowOffset][columnIndex + colOffset] = entry;
+          }
+        }
+      }
+      columnIndex += colSpan;
+    });
+  });
+
+  const contextMeasure = document.createElement('canvas').getContext('2d');
+  const rowHeights = sourceRows.map(() => 40);
+  entries.forEach((entry) => {
+    if (entry.rowSpan !== 1) return;
+    const width = columnWidths
+      .slice(entry.columnIndex, entry.columnIndex + entry.colSpan)
+      .reduce((sum, value) => sum + value, 0);
+    contextMeasure.font = '500 13px Arial, sans-serif';
+    const lines = wrapCanvasText(contextMeasure, entry.cell.innerText.trim(), width - 16);
+    rowHeights[entry.rowIndex] = Math.max(rowHeights[entry.rowIndex], lines.length * 18 + 18);
+  });
+  entries.filter((entry) => entry.rowSpan > 1).forEach((entry) => {
+    const height = rowHeights
+      .slice(entry.rowIndex, entry.rowIndex + entry.rowSpan)
+      .reduce((sum, value) => sum + value, 0);
+    const width = columnWidths
+      .slice(entry.columnIndex, entry.columnIndex + entry.colSpan)
+      .reduce((sum, value) => sum + value, 0);
+    contextMeasure.font = '700 13px Arial, sans-serif';
+    const lines = wrapCanvasText(contextMeasure, entry.cell.innerText.trim(), width - 16);
+    const requiredHeight = lines.length * 18 + 18;
+    if (requiredHeight > height) {
+      rowHeights[entry.rowIndex + entry.rowSpan - 1] += requiredHeight - height;
+    }
+  });
+
+  const titleHeight = 104;
+  const headerHeight = 46;
+  const horizontalPadding = 28;
+  const tableWidth = columnWidths.reduce((sum, width) => sum + width, 0);
+  const tableHeight = rowHeights.reduce((sum, height) => sum + height, 0);
+  const canvas = document.createElement('canvas');
+  const scale = 2;
+  canvas.width = (tableWidth + horizontalPadding * 2) * scale;
+  canvas.height = (titleHeight + headerHeight + tableHeight + 28) * scale;
+  const context = canvas.getContext('2d');
+  context.scale(scale, scale);
+  context.fillStyle = '#ffffff';
+  context.fillRect(0, 0, canvas.width / scale, canvas.height / scale);
+  context.fillStyle = '#e85413';
+  context.font = '700 13px Arial, sans-serif';
+  context.textAlign = 'left';
+  context.textBaseline = 'alphabetic';
+  context.fillText('FPT TELECOM · BẢNG GIÁ GÓI INTERNET', horizontalPadding, 32);
+  context.fillStyle = '#10213f';
+  context.font = '700 24px Arial, sans-serif';
+  context.fillText(selectedAddress.textContent.trim(), horizontalPadding, 66);
+  context.fillStyle = '#5a6785';
+  context.font = '500 13px Arial, sans-serif';
+  context.fillText(
+    `${quoteStatus.textContent.trim()} · Chụp lúc ${new Intl.DateTimeFormat('vi-VN', {
+      dateStyle: 'short',
+      timeStyle: 'short'
+    }).format(new Date())}`,
+    horizontalPadding,
+    90
+  );
+
+  let x = horizontalPadding;
+  let y = titleHeight;
+  headers.forEach((cell, index) => {
+    drawCanvasCell(context, cell, x, y, columnWidths[index], headerHeight, cell.innerText.trim(), true);
+    x += columnWidths[index];
+  });
+  y += headerHeight;
+
+  const rowTops = [];
+  let currentY = y;
+  rowHeights.forEach((height) => {
+    rowTops.push(currentY);
+    currentY += height;
+  });
+  entries.forEach((entry) => {
+    const cellWidth = columnWidths
+      .slice(entry.columnIndex, entry.columnIndex + entry.colSpan)
+      .reduce((sum, width) => sum + width, 0);
+    const cellHeight = rowHeights
+      .slice(entry.rowIndex, entry.rowIndex + entry.rowSpan)
+      .reduce((sum, height) => sum + height, 0);
+    const cellX = horizontalPadding + columnWidths
+      .slice(0, entry.columnIndex)
+      .reduce((sum, width) => sum + width, 0);
+    drawCanvasCell(
+      context,
+      entry.cell,
+      cellX,
+      rowTops[entry.rowIndex],
+      cellWidth,
+      cellHeight,
+      entry.cell.innerText.trim()
+    );
+  });
+
+  const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+  if (!blob) throw new Error('Trình duyệt không tạo được ảnh PNG.');
+  const imageUrl = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  const safeAddress = normalizeVietnameseName(selectedAddress.textContent)
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+  link.href = imageUrl;
+  link.download = `bang-gia-fpt-${safeAddress || 'khu-vuc'}.png`;
+  link.click();
+  URL.revokeObjectURL(imageUrl);
+  captureStatus.textContent = 'Đã tải ảnh bảng giá PNG.';
+}
+
+capturePriceButton.addEventListener('click', () => {
+  captureStatus.textContent = '';
+  downloadPriceTableImage().catch((error) => {
+    captureStatus.textContent = `Không chụp được ảnh: ${error.message}`;
+  });
+});
+loadLocations();
+
+    </script>
+  </body>
+</html>
